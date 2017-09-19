@@ -1,5 +1,7 @@
 import * as React from 'react'
 import './App.css'
+import Timer, {TimeType} from './Timer';
+import Pill from './Pill'
 
 /* TODO: 
   [ ] Timer progress animation
@@ -13,22 +15,6 @@ import './App.css'
 
 */
 
-interface TimeType {
-  days: string
-  hours: string
-  minutes: string
-  seconds: string
-}
-
-interface TimerProps extends React.HTMLAttributes<HTMLDivElement> {
-  time: TimeType
-}
-
-const Timer: React.SFC<TimerProps> = ({ time, ...rest }) =>
-  <span {...rest}>
-    {time.minutes}:
-    {time.seconds}
-  </span>
 
 interface AppState {
   timeLeft: TimeType
@@ -64,6 +50,7 @@ class App extends React.Component<{}, AppState> {
 
   updateClock(endTime: Date) {
     const timeRemaining = this.getTimeRemaining(endTime)
+    console.log(parseInt(timeRemaining.total)*1000/100)
     this.setState({ timeLeft: timeRemaining })
     if (parseInt(timeRemaining.total) <= 0) {
     }
@@ -80,7 +67,6 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    const todoProgressStyle = {flexBasis: '66%'}
     return (
       <div className="App">
         <header>
@@ -96,25 +82,9 @@ class App extends React.Component<{}, AppState> {
         <div className="shiny" />
         <section className="content">
           <h4>Main goal for today</h4>
-          <div className="pill" onClick={() => this.onClick()}>
-            <div className="todo">
-              <input type="checkbox" className="todo-toggle" />
-              <p className="todo-label">Read Book</p>
-              {this.state.intervalId &&
-                <Timer time={this.state.timeLeft} className="timer" />}
-              <div className="todo-pom-counter">
-                <div className="todo-pom-indicator done" />
-                <div className="todo-pom-indicator done" />
-                <div className="todo-pom-indicator" />
-                <div className="todo-pom-indicator" />
-                <div className="todo-pom-indicator" />
-              </div>
-            </div>
-            <div className="todo-progress">
-              <div style={todoProgressStyle} className="shiny todo-progress-done" />
-              <div></div>
-            </div>
-          </div>
+          <Pill timer={true} onClick={() => this.onClick()} completion={50} intervalId={this.state.intervalId} />
+        {this.state.intervalId &&
+          <Timer time={this.state.timeLeft} className="timer" />}
           <span className="action">+ </span>
           <a href="#">Add a secondary task</a>
           <div />
