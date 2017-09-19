@@ -1,6 +1,18 @@
 import * as React from 'react'
 import './App.css'
 
+/* TODO: 
+  [ ] Timer progress animation
+        How to set flex basis at runtime?
+  [ ] Add Todo
+  [ ] Complete Todo
+  [ ] Remove Todo
+  - Pomadoro sessions indicator
+    [x] skin
+    [ ] logic
+
+*/
+
 interface TimeType {
   days: string
   hours: string
@@ -13,12 +25,10 @@ interface TimerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Timer: React.SFC<TimerProps> = ({ time, ...rest }) =>
-  <div {...rest}>
-    {time.days}:
-    {time.hours}:
+  <span {...rest}>
     {time.minutes}:
     {time.seconds}
-  </div>
+  </span>
 
 interface AppState {
   timeLeft: TimeType
@@ -70,6 +80,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
+    const todoProgressStyle = {flexBasis: '66%'}
     return (
       <div className="App">
         <header>
@@ -82,16 +93,31 @@ class App extends React.Component<{}, AppState> {
             <label>Daily</label>
           </div>
         </header>
-        <div className="shiny"></div>
+        <div className="shiny" />
         <section className="content">
           <h4>Main goal for today</h4>
-          <input type="text" autoFocus/>
-          <span className="action">+ </span><a href="#">Add a secondary task</a>
-          <div hidden>
-            {this.state.intervalId &&
-              <Timer time={this.state.timeLeft} className="gaga" />}
-            <button onClick={() => this.onClick()}>Start Timer</button>
+          <div className="pill" onClick={() => this.onClick()}>
+            <div className="todo">
+              <input type="checkbox" className="todo-toggle" />
+              <p className="todo-label">Read Book</p>
+              {this.state.intervalId &&
+                <Timer time={this.state.timeLeft} className="timer" />}
+              <div className="todo-pom-counter">
+                <div className="todo-pom-indicator done" />
+                <div className="todo-pom-indicator done" />
+                <div className="todo-pom-indicator" />
+                <div className="todo-pom-indicator" />
+                <div className="todo-pom-indicator" />
+              </div>
+            </div>
+            <div className="todo-progress">
+              <div style={todoProgressStyle} className="shiny todo-progress-done" />
+              <div></div>
+            </div>
           </div>
+          <span className="action">+ </span>
+          <a href="#">Add a secondary task</a>
+          <div />
         </section>
       </div>
     )

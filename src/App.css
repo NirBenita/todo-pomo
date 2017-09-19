@@ -5,11 +5,8 @@
   overflow: hidden;
   color: white;
   font-family: HelveticaNeue-Light;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.36);
+  margin: 24px auto;
 }
 
 .App-header {
@@ -31,6 +28,7 @@
     transform: rotate(360deg);
   }
 }
+
 header {
   display: flex;
   text-align: center;
@@ -47,26 +45,76 @@ header > div {
 .content {
   padding: 0 24px 18px 24px;
 }
+
 .shiny {
   background-image: linear-gradient(-90deg, #8746ff 1%, #00cbff 100%);
   height: 2px;
   width: 100%;
 }
+
 h4 {
-  /* font-family: HelveticaNeue-Bold; */
   font-size: 14px;
   line-height: 48px;
 }
-input {
+
+.pill {
   background: #ffffff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.48);
   border-radius: 6px;
+  overflow: hidden;
+  color: #4a4a4a;
   line-height: 36px;
-  width: 100%;
   outline: none;
   border: none;
-  padding: 0 12px;
+  /* padding: 0 12px; */
+  width: 100%;
+  height: 36px;
+  transition: .2s background-color ease-in;
+  /* border-bottom: 2px solid #f2f2f2; */
+  display: flex;
+  flex-direction: column;
 }
+
+.pill:hover {
+  background-color: #e8f1fd;
+}
+
+.todo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0 12px;
+}
+
+.todo-toggle {
+  margin-right: 6px;
+  border: 1px solid red;
+}
+
+.todo-pom-counter {
+  display: flex;
+}
+.todo-pom-indicator {
+  height: 4px;
+  width: 4px;
+  border-radius: 99px;
+  background-color: #c9d5f5;
+  margin: 0 2px;
+}
+.todo-pom-indicator.done {
+  background-image: linear-gradient(-145deg, #8746ff 0%, #00cbff 100%);
+}
+.todo-progress {
+  display: flex;
+  height: 2px;
+  background-color: #223855;
+}
+.todo-progress-done {}
+
+.todo-label {
+  flex: 1;
+}
+
 label {
   opacity: 0.6;
   font-family: HelveticaNeue;
@@ -77,14 +125,16 @@ label {
 
 a {
   font-size: 14px;
-  color: #C9D5F5;
+  color: #c9d5f5;
   line-height: 36px;
   text-decoration: none;
 }
-a:hover{
+
+a:hover {
   text-decoration: underline;
 }
+
 .action {
-  color: #207CF0;
+  color: #207cf0;
   font-weight: bold;
 }
