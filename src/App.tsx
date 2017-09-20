@@ -20,34 +20,37 @@ export interface TimeType {
 
 interface AppState {
   timeLeft?: string
-  completed: number
+  completion: number
   intervalId?: NodeJS.Timer
 }
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props)
     this.state = {
-      completed: 0
+      completion: 0
     }
   }
   onClick() {
-    this.initializeTimer(25)
+    this.initializeTimer(1)
   }
   getTimeRemaining(startTime: number, endTime: number) {
     // const t = Math.round(100-((endTime.getTime()-startTime.getTime()) * 100) / now ) +'%'
     var now: number = +new Date(),
-      start: number = startTime * 1000,
-      end: number = endTime * 1000
+      start: number = startTime,
+      end: number = endTime
+    debugger
 
-    const t = Math.round((now - start) / (end - start) * 100)
-    console.log(Math.round((now - startTime) / (endTime - start) * 100))
+    let total = end - start
+    let progress = now - start
+
+    const t = Math.round(progress / total * 100)
+    console.log(t)
     return t
   }
 
   updateTimer(startTime: number, endTime: number) {
     const timeRemaining = this.getTimeRemaining(startTime, endTime)
-
-    this.setState({ completed: timeRemaining })
+    this.setState({ completion: timeRemaining })
     // if (parseInt(timeRemaining.total) <= 0) {
     //   Stop
     // }
@@ -66,7 +69,7 @@ class App extends React.Component<{}, AppState> {
 
     let timeinterval = global.setInterval(
       () => this.updateTimer(startTime, endTime),
-      100
+      1000
     )
     this.setState({ intervalId: timeinterval })
   }
@@ -90,7 +93,7 @@ class App extends React.Component<{}, AppState> {
           <Pill
             timer={true}
             onClick={() => this.onClick()}
-            completion={50}
+            completion={this.state.completion}
             intervalId={this.state.intervalId}
           />
           <span className="action">+ </span>
