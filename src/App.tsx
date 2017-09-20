@@ -1,11 +1,10 @@
 import * as React from 'react'
 import './App.css'
-import Timer, {TimeType} from './Timer';
 import Pill from './Pill'
 
 /* TODO: 
   [ ] Timer progress animation
-        How to set flex basis at runtime?
+        [x] How to set flex basis at runtime?
   [ ] Add Todo
   [ ] Complete Todo
   [ ] Remove Todo
@@ -15,54 +14,60 @@ import Pill from './Pill'
 
 */
 
+export interface TimeType {
+  total: string
+}
 
 interface AppState {
-  timeLeft: TimeType
+  timeLeft?: string
+  completed: number
   intervalId?: NodeJS.Timer
 }
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props)
     this.state = {
-      timeLeft: { days: '0', hours: '0', minutes: '0', seconds: '0' }
+      completed: 0
     }
   }
   onClick() {
-    var timeInMinutes = 25
-    var currentTime: Date = new Date()
-    var deadline = new Date(currentTime.getTime() + timeInMinutes * 60 * 1000)
-    this.initializeClock(deadline)
+    this.initializeTimer(25)
   }
-  getTimeRemaining(endtime: Date) {
-    var t = endtime.getTime() - new Date().getTime()
-    var seconds = Math.floor(t / 1000 % 60)
-    var minutes = Math.floor(t / 1000 / 60 % 60)
-    var hours = Math.floor(t / (1000 * 60 * 60) % 24)
-    var days = Math.floor(t / (1000 * 60 * 60 * 24))
-    return {
-      total: t.toString(),
-      days: days.toString(),
-      hours: hours.toString(),
-      minutes: minutes.toString(),
-      seconds: seconds.toString()
-    }
+  getTimeRemaining(startTime: number, endTime: number) {
+    // const t = Math.round(100-((endTime.getTime()-startTime.getTime()) * 100) / now ) +'%'
+    var now: number = +new Date(),
+      start: number = startTime * 1000,
+      end: number = endTime * 1000
+
+    const t = Math.round((now - start) / (end - start) * 100)
+    console.log(Math.round((now - startTime) / (endTime - start) * 100))
+    return t
   }
 
-  updateClock(endTime: Date) {
-    const timeRemaining = this.getTimeRemaining(endTime)
-    console.log(parseInt(timeRemaining.total)*1000/100)
-    this.setState({ timeLeft: timeRemaining })
-    if (parseInt(timeRemaining.total) <= 0) {
-    }
+  updateTimer(startTime: number, endTime: number) {
+    const timeRemaining = this.getTimeRemaining(startTime, endTime)
+
+    this.setState({ completed: timeRemaining })
+    // if (parseInt(timeRemaining.total) <= 0) {
+    //   Stop
+    // }
   }
-  initializeClock(endTime: Date) {
+
+  initializeTimer(timeInMinutes: number) {
+    var startTime: number = new Date().getTime()
+    var endTime: number = new Date(
+      startTime + timeInMinutes * 60 * 1000
+    ).getTime()
+
     if (this.state.intervalId) {
       clearInterval(this.state.intervalId)
     }
+    this.updateTimer(startTime, endTime)
 
-    this.updateClock(endTime)
-
-    let timeinterval = global.setInterval(() => this.updateClock(endTime), 1000)
+    let timeinterval = global.setInterval(
+      () => this.updateTimer(startTime, endTime),
+      100
+    )
     this.setState({ intervalId: timeinterval })
   }
 
@@ -82,9 +87,12 @@ class App extends React.Component<{}, AppState> {
         <div className="shiny" />
         <section className="content">
           <h4>Main goal for today</h4>
-          <Pill timer={true} onClick={() => this.onClick()} completion={50} intervalId={this.state.intervalId} />
-        {this.state.intervalId &&
-          <Timer time={this.state.timeLeft} className="timer" />}
+          <Pill
+            timer={true}
+            onClick={() => this.onClick()}
+            completion={50}
+            intervalId={this.state.intervalId}
+          />
           <span className="action">+ </span>
           <a href="#">Add a secondary task</a>
           <div />
