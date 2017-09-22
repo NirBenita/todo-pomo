@@ -3,11 +3,13 @@ import './App.css'
 import Pill from './Pill'
 
 /* TODO: 
-  [ ] Timer progress animation
-        [x] How to set flex basis at runtime?
-  [ ] Add Todo
-  [ ] Complete Todo
-  [ ] Remove Todo
+  [x] Timer progress animation
+    [x] How to set flex basis at runtime?
+  - Todo
+    [ ] Add Todo
+    [ ] Complete Todo
+    [ ] Remove Todo
+    [ ] Multiple timers
   - Pomadoro sessions indicator
     [x] skin
     [ ] logic
@@ -38,7 +40,6 @@ class App extends React.Component<{}, AppState> {
     var now: number = +new Date(),
       start: number = startTime,
       end: number = endTime
-    debugger
 
     let total = end - start
     let progress = now - start
@@ -95,6 +96,14 @@ class App extends React.Component<{}, AppState> {
             onClick={() => this.onClick()}
             completion={this.state.completion}
             intervalId={this.state.intervalId}
+            text="Paint cieling"
+          />
+          <Pill
+            timer={true}
+            onClick={() => this.onClick()}
+            completion={this.state.completion}
+            intervalId={this.state.intervalId}
+            text="Read Book"
           />
           <span className="action">+ </span>
           <a href="#">Add a secondary task</a>
