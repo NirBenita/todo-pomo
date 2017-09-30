@@ -1,6 +1,7 @@
 import * as React from 'react'
 import './App.css'
-import Pill from './Pill'
+import TodoItem from './TodoItem'
+import { findDOMNode } from 'react-dom'
 
 /* TODO: 
   [x] Timer progress animation
@@ -16,6 +17,13 @@ import Pill from './Pill'
 
 */
 
+interface ITodo {
+  id: string,
+  title: string,
+  completed: boolean,
+  pomadoros: number
+}
+
 export interface TimeType {
   total: string
 }
@@ -24,14 +32,19 @@ interface AppState {
   timeLeft?: string
   completion: number
   intervalId?: NodeJS.Timer
+  todos: Array<ITodo>
 }
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props)
     this.state = {
-      completion: 0
+      completion: 0,
+      todos: []
     }
   }
+
+  // @@@ TIMER @@@
+
   onClick() {
     this.initializeTimer(1)
   }
@@ -75,6 +88,30 @@ class App extends React.Component<{}, AppState> {
     this.setState({ intervalId: timeinterval })
   }
 
+  // @@@ TODO @@@@
+
+  handleNewTodoKeyDown(e: React.FormEvent<HTMLInputElement>): void {
+    e.preventDefault
+    const newTodoInput = findDOMNode<HTMLInputElement>(this.refs["newTodoInput"])
+    let val = newTodoInput.value.trim();
+
+    if(val){
+      this.addTodo(val);
+      newTodoInput.value = ''
+    }
+  }
+
+  addTodo(val: string) {
+    const newTodo = {
+      id: Math.random().toString(), // Replace with UUID
+      title: val,
+      completed: false,
+      pomadoros: 0
+    }
+
+    this.setState((state) => ({todos: this.state.todos.concat(newTodo)}))
+  }
+
   render() {
     return (
       <div className="App">
@@ -89,24 +126,27 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
-        <section className="content">
+        <section className="todo">
           <h4>Main goal for today</h4>
-          <Pill
-            timer={true}
+          <TodoItem
+            timerOn={true}
             onClick={() => this.onClick()}
             completion={this.state.completion}
             intervalId={this.state.intervalId}
             text="Paint cieling"
           />
-          <Pill
-            timer={true}
+          <TodoItem
+            timerOn={true}
             onClick={() => this.onClick()}
             completion={this.state.completion}
             intervalId={this.state.intervalId}
             text="Read Book"
           />
-          <span className="action">+ </span>
-          <a href="#">Add a secondary task</a>
+          <div className="todo-add">
+            <input ref="newTodoInput" type="text"/>
+            <span className="action">+ </span>
+            <a href="#">Add a secondary task</a>
+          </div> 
           <div />
         </section>
       </div>

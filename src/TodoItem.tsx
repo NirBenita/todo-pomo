@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import './App.css'
 
-interface PillProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TodoItemProps extends React.HTMLAttributes<HTMLDivElement> {
   timer?: boolean
   completion: number
   intervalId?: NodeJS.Timer
@@ -10,7 +10,7 @@ interface PillProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string
 }
 
-const Pill: React.SFC<PillProps> = ({
+const TodoItem: React.SFC<TodoItemProps> = ({
   timer,
   completion,
   intervalId,
@@ -21,8 +21,8 @@ const Pill: React.SFC<PillProps> = ({
   const todoProgressStyle = { flexBasis: completion + '%' }
 
   return (
-    <div className="pill" {...rest}>
-      <div className="todo">
+    <div className="todo-item" {...rest}>
+      <div className="todo-item-content">
         <input type="checkbox" className="todo-toggle" />
         <p className="todo-label">{text}</p>
         <div className="todo-pom-counter">
@@ -41,4 +41,4 @@ const Pill: React.SFC<PillProps> = ({
   )
 }
 
-export default Pill
+export default TodoItem
