@@ -14,42 +14,55 @@ import { findDOMNode } from 'react-dom'
   - Pomadoro sessions indicator
     [x] skin
     [ ] logic
+    [ ] Make timer global
 
 */
 
-interface ITodo {
-  id: string,
-  title: string,
-  completed: boolean,
-  pomadoros: number
-}
-
-export interface TimeType {
-  total: string
-}
+const mockTodoList = [
+  {
+    id: '5',
+    title: 'Finish coffee',
+    completed: false,
+    pomadoros: 2
+  },
+  {
+    id: '3',
+    title: 'Book hotel',
+    completed: false,
+    pomadoros: 1
+  }
+]
 
 interface AppState {
   timeLeft?: string
-  completion: number
+  completion?: number
   intervalId?: NodeJS.Timer
   todos: Array<ITodo>
 }
+
+function addTodo(newTodo: ITodo) {
+  return function update(state: AppState) {
+    let todos = state.todos.slice()
+    todos.push(newTodo)
+    return { todos: todos }
+  }
+}
+
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props)
     this.state = {
       completion: 0,
-      todos: []
+      todos: mockTodoList
     }
   }
 
   // @@@ TIMER @@@
 
-  onClick() {
+  onClick(todo: ITodo) {
     this.initializeTimer(1)
   }
   getTimeRemaining(startTime: number, endTime: number) {
-    // const t = Math.round(100-((endTime.getTime()-startTime.getTime()) * 100) / now ) +'%'
     var now: number = +new Date(),
       start: number = startTime,
       end: number = endTime
@@ -90,18 +103,26 @@ class App extends React.Component<{}, AppState> {
 
   // @@@ TODO @@@@
 
-  handleNewTodoKeyDown(e: React.FormEvent<HTMLInputElement>): void {
-    e.preventDefault
-    const newTodoInput = findDOMNode<HTMLInputElement>(this.refs["newTodoInput"])
-    let val = newTodoInput.value.trim();
+  handleNewTodoKeyDown(e: __React.KeyboardEvent): void {
+    if (e.keyCode !== 13) {
+      return
+    }
 
-    if(val){
-      this.addTodo(val);
+    e.preventDefault()
+
+    const newTodoInput = findDOMNode<HTMLInputElement>(
+      this.refs['newTodoInput']
+    )
+
+    let val = newTodoInput.value.trim()
+
+    if (val) {
+      this.addNewTodo(val)
       newTodoInput.value = ''
     }
   }
 
-  addTodo(val: string) {
+  addNewTodo(val: string) {
     const newTodo = {
       id: Math.random().toString(), // Replace with UUID
       title: val,
@@ -109,9 +130,8 @@ class App extends React.Component<{}, AppState> {
       pomadoros: 0
     }
 
-    this.setState((state) => ({todos: this.state.todos.concat(newTodo)}))
+    this.setState(addTodo(newTodo))
   }
-
   render() {
     return (
       <div className="App">
@@ -128,29 +148,30 @@ class App extends React.Component<{}, AppState> {
         <div className="shiny" />
         <section className="todo">
           <h4>Main goal for today</h4>
-          <TodoItem
-            timerOn={true}
-            onClick={() => this.onClick()}
-            completion={this.state.completion}
-            intervalId={this.state.intervalId}
-            text="Paint cieling"
-          />
-          <TodoItem
-            timerOn={true}
-            onClick={() => this.onClick()}
-            completion={this.state.completion}
-            intervalId={this.state.intervalId}
-            text="Read Book"
-          />
+          {this.state.todos.map(todo => (
+            <TodoItem
+              key={todo.id}
+              text={todo.title}
+              timerOn={true}
+              onClick={() => this.onClick(todo)}
+              completion={this.state.completion}
+              intervalId={this.state.intervalId}
+            />
+          ))}
           <div className="todo-add">
-            <input ref="newTodoInput" type="text"/>
+            <input
+              ref="newTodoInput"
+              onChange={this.handleNewTodoKeyDown}
+              type="text"
+            />
             <span className="action">+ </span>
             <a href="#">Add a secondary task</a>
-          </div> 
+          </div>
           <div />
         </section>
       </div>
     )
   }
 }
+
 export default App

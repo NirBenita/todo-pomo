@@ -4,7 +4,7 @@ import './App.css'
 
 interface TodoItemProps extends React.HTMLAttributes<HTMLDivElement> {
   timer?: boolean
-  completion: number
+  completion?: number
   intervalId?: NodeJS.Timer
   timerOn?: boolean
   text: string

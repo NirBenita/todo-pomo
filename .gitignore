@@ -15,7 +15,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/pomodoro.sketch
+
+pomodoro.sketch
+/example
 
 npm-debug.log*
 yarn-debug.log*
