@@ -1,7 +1,10 @@
+/// <reference path="./interface.d.ts"/>
+
 import * as React from 'react'
 import './App.css'
 import TodoItem from './TodoItem'
 import { findDOMNode } from 'react-dom'
+import mockTodoList from './lib/mock-data'
 
 /* TODO: 
   [x] Timer progress animation
@@ -17,21 +20,6 @@ import { findDOMNode } from 'react-dom'
     [ ] Make timer global
 
 */
-
-const mockTodoList = [
-  {
-    id: '5',
-    title: 'Finish coffee',
-    completed: false,
-    pomadoros: 2
-  },
-  {
-    id: '3',
-    title: 'Book hotel',
-    completed: false,
-    pomadoros: 1
-  }
-]
 
 interface AppState {
   timeLeft?: string
@@ -102,20 +90,17 @@ class App extends React.Component<{}, AppState> {
   }
 
   // @@@ TODO @@@@
-
-  handleNewTodoKeyDown(e: React.FormEvent<HTMLInputElement>): void {
+  handleNewTodoKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.keyCode !== 13) {
       return
     }
-
     e.preventDefault()
-
     const newTodoInput = findDOMNode<HTMLInputElement>(
       this.refs['newTodoInput']
     )
-
+  
     let val = newTodoInput.value.trim()
-
+  
     if (val) {
       this.addNewTodo(val)
       newTodoInput.value = ''
@@ -161,7 +146,7 @@ class App extends React.Component<{}, AppState> {
           <div className="todo-add">
             <input
               ref="newTodoInput"
-              onChange={this.handleNewTodoKeyDown}
+              onKeyDown={this.handleNewTodoKeyDown}
               type="text"
             />
             <span className="action">+ </span>
