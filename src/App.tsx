@@ -77,7 +77,7 @@ class App extends React.Component<{}, AppState> {
 
   updateTimer(startTime: number, endTime: number) {
     const timeRemaining = this.getTimeRemaining(startTime, endTime)
-    this.setState({ completion: timeRemaining })
+    this.setState({ ...this.state, completion: timeRemaining })
     // if (parseInt(timeRemaining.total) <= 0) {
     //   Stop
     // }
@@ -98,12 +98,12 @@ class App extends React.Component<{}, AppState> {
       () => this.updateTimer(startTime, endTime),
       1000
     )
-    this.setState({ intervalId: timeinterval })
+    this.setState({ ...this.state, intervalId: timeinterval })
   }
 
   // @@@ TODO @@@@
 
-  handleNewTodoKeyDown(e: __React.KeyboardEvent): void {
+  handleNewTodoKeyDown(e: React.FormEvent<HTMLInputElement>): void {
     if (e.keyCode !== 13) {
       return
     }
