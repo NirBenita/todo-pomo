@@ -1,5 +1,5 @@
-import * as React from 'react'
+import * as React from 'react';
 
-export const TodoList = () => {<div>
-    Yo
-</div>}
+export const TodoList: React.SFC<{}> = () => {
+  <div>Yo</div>
+}
