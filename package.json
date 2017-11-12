@@ -12,8 +12,10 @@
   },
   "devDependencies": {
     "enzyme": "^3.1.1",
+    "enzyme-adapter-react-15": "^1.0.5",
     "enzyme-to-json": "^3.2.2",
-    "react-scripts-ts": "2.7.0"
+    "react-scripts-ts": "2.8.0",
+    "react-test-renderer": "15"
   },
   "scripts": {
     "start": "react-scripts-ts start",
