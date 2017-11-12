@@ -18,7 +18,6 @@ import mockTodoList from './lib/mock-data'
     [x] skin
     [ ] logic
     [ ] Make timer global
-
 */
 
 interface AppState {
