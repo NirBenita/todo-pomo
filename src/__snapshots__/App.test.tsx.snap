@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should display todos passed to it 1`] = `
+<Component
+  todos={
+    Array [
+      Object {
+        "title": "zagzag",
+      },
+    ]
+  }
+>
+  <div>
+    <ul>
+      <li
+        key="0"
+      >
+        zagzag
+      </li>
+    </ul>
+  </div>
+</Component>
+`;
+
+exports[`should render todo list 1`] = `
+<div>
+  <ul />
+</div>
+`;
