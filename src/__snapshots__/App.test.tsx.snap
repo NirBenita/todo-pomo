@@ -1,7 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should add a new todo 1`] = `
+<TodoList>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    />
+  </div>
+</TodoList>
+`;
+
+exports[`should add a new todo 2`] = `
+<TodoList>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
+      <li>z</li>
+    </ul>
+  </div>
+</TodoList>
+`;
+
 exports[`should display todos passed to it 1`] = `
-<Component
+<TodoList
   todos={
     Array [
       Object {
@@ -11,7 +43,14 @@ exports[`should display todos passed to it 1`] = `
   }
 >
   <div>
-    <ul>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
       <li
         key="0"
       >
@@ -19,11 +58,18 @@ exports[`should display todos passed to it 1`] = `
       </li>
     </ul>
   </div>
-</Component>
+</TodoList>
 `;
 
 exports[`should render todo list 1`] = `
 <div>
-  <ul />
+  <input
+    className="new-todo-input"
+    onKeyDown={[Function]}
+    type="text"
+  />
+  <ul
+    className="todos"
+  />
 </div>
 `;
