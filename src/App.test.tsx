@@ -56,4 +56,4 @@ it('should remove a todo', () => {
   expect(wrapper).toMatchSnapshot()
 
 })
-it('should check a todo', () => {})
+it('should toggle a todo', () => {})
