@@ -35,6 +35,7 @@ exports[`should display todos passed to it 1`] = `
   todos={
     Array [
       Object {
+        "done": false,
         "title": "zagzag",
       },
     ]
@@ -60,6 +61,12 @@ exports[`should display todos passed to it 1`] = `
         >
           x
         </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
       </li>
     </ul>
   </div>
@@ -71,9 +78,11 @@ exports[`should remove a todo 1`] = `
   todos={
     Array [
       Object {
+        "done": false,
         "title": "zagzag",
       },
       Object {
+        "done": false,
         "title": "gaga",
       },
     ]
@@ -98,6 +107,12 @@ exports[`should remove a todo 1`] = `
           onClick={[Function]}
         >
           x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
         </button>
       </li>
       <li
@@ -111,6 +126,12 @@ exports[`should remove a todo 1`] = `
         >
           x
         </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
       </li>
     </ul>
   </div>
@@ -122,9 +143,11 @@ exports[`should remove a todo 2`] = `
   todos={
     Array [
       Object {
+        "done": false,
         "title": "zagzag",
       },
       Object {
+        "done": false,
         "title": "gaga",
       },
     ]
@@ -149,6 +172,12 @@ exports[`should remove a todo 2`] = `
           onClick={[Function]}
         >
           x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
         </button>
       </li>
     </ul>
@@ -167,4 +196,134 @@ exports[`should render todo list 1`] = `
     className="todos"
   />
 </div>
+`;
+
+exports[`should toggle a todo 1`] = `
+<TodoList
+  todos={
+    Array [
+      Object {
+        "done": false,
+        "title": "zagzag",
+      },
+      Object {
+        "done": false,
+        "title": "gaga",
+      },
+    ]
+  }
+>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
+      <li
+        className="todo"
+        key="0"
+      >
+        zagzag
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
+      </li>
+      <li
+        className="todo"
+        key="1"
+      >
+        gaga
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
+      </li>
+    </ul>
+  </div>
+</TodoList>
+`;
+
+exports[`should toggle a todo 2`] = `
+<TodoList
+  todos={
+    Array [
+      Object {
+        "done": false,
+        "title": "zagzag",
+      },
+      Object {
+        "done": false,
+        "title": "gaga",
+      },
+    ]
+  }
+>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
+      <li
+        className="todo"
+        key="0"
+      >
+        zagzag
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
+      </li>
+      <li
+        className="todo"
+        key="1"
+      >
+        gaga
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+        <button
+          className="toggle"
+          onClick={[Function]}
+        >
+          done
+        </button>
+      </li>
+    </ul>
+  </div>
+</TodoList>
 `;

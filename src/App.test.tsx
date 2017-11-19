@@ -14,12 +14,12 @@ it('renders without crashing', () => {
 
 it('should render todo list', () => {
   const wrapper = shallow(<TodoList />)
-  
+
   expect(toJson(wrapper)).toMatchSnapshot()
 })
 
 it('should display todos passed to it', () => {
-  const mockTodos = [{ title: 'zagzag' }]
+  const mockTodos = [{ title: 'zagzag', done: false }]
 
   const wrapper = mount(<TodoList todos={mockTodos} />)
 
@@ -29,31 +29,59 @@ it('should display todos passed to it', () => {
 xit('should add a new todo', () => {
   const component = mount(<TodoList />)
   const Input = component.find('.new-todo-input')
-  let wrapper = toJson(component);
-  
+  let wrapper = toJson(component)
+
   expect(wrapper).toMatchSnapshot()
-  
-  Input.simulate('keydown', { key: 'z', keyCode: 90, which: 90 })
-  Input.simulate('keydown', { key: 'Enter', keyCode: 13, which: 13 })
-  
-  wrapper = toJson(component);
-  
+
+  Input.simulate('keydown', {
+    preventDefault() {},
+    key: 'z',
+    keyCode: 90,
+    which: 90
+  })
+  Input.simulate('keydown', {
+    preventDefault() {},
+    key: 'Enter',
+    keyCode: 13,
+    which: 13
+  })
+
+  wrapper = toJson(component)
+
   expect(wrapper).toMatchSnapshot()
 })
 
 it('should remove a todo', () => {
-  const mockTodos = [{ title: 'zagzag' }, { title: 'gaga' }]
+  const mockTodos = [
+    { title: 'zagzag', done: false },
+    { title: 'gaga', done: false }
+  ]
   let component = mount(<TodoList todos={mockTodos} />)
-  let wrapper = toJson(component);
-  
+  let wrapper = toJson(component)
+
   expect(wrapper).toMatchSnapshot()
-  
+
   let todoItem = component.find('.todo').first()
   todoItem.find('.remove').simulate('click')
-  
-  wrapper = toJson(component);
+
+  wrapper = toJson(component)
+
+  expect(wrapper).toMatchSnapshot()
+})
+it('should toggle a todo', () => {
+  const mockTodos = [
+    { title: 'zagzag', done: false },
+    { title: 'gaga', done: false }
+  ]
+  let component = mount(<TodoList todos={mockTodos} />)
+  let wrapper = toJson(component)
 
   expect(wrapper).toMatchSnapshot()
 
+  let todoItem = component.find('.todo').first()
+  todoItem.find('.toggle').simulate('click')
+
+  wrapper = toJson(component)
+
+  expect(wrapper).toMatchSnapshot()
 })
-it('should toggle a todo', () => {})

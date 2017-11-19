@@ -130,7 +130,7 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
-        <TodoList todos={[{title:'zagzag'}]} />
+        <TodoList todos={[{title:'zagzag', done: false}]} />
       </div>
     )
   }
