@@ -50,24 +50,35 @@ exports[`should display todos passed to it 1`] = `
     <ul
       className="todos"
     >
-      <li
-        className="todo"
+      <Component
         key="0"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "zagzag",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        zagzag
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
+          zagzag
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
     </ul>
   </div>
 </TodoList>
@@ -79,7 +90,7 @@ exports[`should remove a todo 1`] = `
     Array [
       Object {
         "done": false,
-        "title": "zagzag",
+        "title": "toRemove",
       },
       Object {
         "done": false,
@@ -97,42 +108,64 @@ exports[`should remove a todo 1`] = `
     <ul
       className="todos"
     >
-      <li
-        className="todo"
+      <Component
         key="0"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "toRemove",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        zagzag
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
-      <li
-        className="todo"
+          toRemove
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
+      <Component
         key="1"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "gaga",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        gaga
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
+          gaga
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
     </ul>
   </div>
 </TodoList>
@@ -144,7 +177,7 @@ exports[`should remove a todo 2`] = `
     Array [
       Object {
         "done": false,
-        "title": "zagzag",
+        "title": "toRemove",
       },
       Object {
         "done": false,
@@ -162,24 +195,35 @@ exports[`should remove a todo 2`] = `
     <ul
       className="todos"
     >
-      <li
-        className="todo"
+      <Component
         key="0"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "gaga",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        gaga
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
+          gaga
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
     </ul>
   </div>
 </TodoList>
@@ -204,7 +248,7 @@ exports[`should toggle a todo 1`] = `
     Array [
       Object {
         "done": false,
-        "title": "zagzag",
+        "title": "toToggle",
       },
       Object {
         "done": false,
@@ -222,42 +266,64 @@ exports[`should toggle a todo 1`] = `
     <ul
       className="todos"
     >
-      <li
-        className="todo"
+      <Component
         key="0"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "toToggle",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        zagzag
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
-      <li
-        className="todo"
+          toToggle
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
+      <Component
         key="1"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "gaga",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        gaga
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
+          gaga
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
     </ul>
   </div>
 </TodoList>
@@ -269,7 +335,7 @@ exports[`should toggle a todo 2`] = `
     Array [
       Object {
         "done": false,
-        "title": "zagzag",
+        "title": "toToggle",
       },
       Object {
         "done": false,
@@ -287,42 +353,64 @@ exports[`should toggle a todo 2`] = `
     <ul
       className="todos"
     >
-      <li
-        className="todo"
+      <Component
         key="0"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "toToggle",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        zagzag
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
-      <li
-        className="todo"
+          toToggle
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
+      <Component
         key="1"
+        removeTodo={[Function]}
+        todo={
+          Object {
+            "done": false,
+            "title": "gaga",
+          }
+        }
+        toggleTodo={[Function]}
       >
-        gaga
-        <button
-          className="remove"
-          onClick={[Function]}
+        <li
+          className="todo"
         >
-          x
-        </button>
-        <button
-          className="toggle"
-          onClick={[Function]}
-        >
-          done
-        </button>
-      </li>
+          gaga
+          <button
+            className="remove"
+            onClick={[Function]}
+          >
+            delete
+          </button>
+          <button
+            className="toggle"
+            onClick={[Function]}
+          >
+            done
+          </button>
+        </li>
+      </Component>
     </ul>
   </div>
 </TodoList>

@@ -53,7 +53,7 @@ xit('should add a new todo', () => {
 
 it('should remove a todo', () => {
   const mockTodos = [
-    { title: 'zagzag', done: false },
+    { title: 'toRemove', done: false },
     { title: 'gaga', done: false }
   ]
   let component = mount(<TodoList todos={mockTodos} />)
@@ -70,7 +70,7 @@ it('should remove a todo', () => {
 })
 it('should toggle a todo', () => {
   const mockTodos = [
-    { title: 'zagzag', done: false },
+    { title: 'toToggle', done: false },
     { title: 'gaga', done: false }
   ]
   let component = mount(<TodoList todos={mockTodos} />)

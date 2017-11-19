@@ -1,6 +1,10 @@
 interface ITodo {
-  id: string
   title: string
-  completed: boolean
-  pomadoros: number
+  done: boolean
+}
+
+interface ITodoItemProps {
+  todo: ITodo
+  removeTodo: (todo: ITodo) => void
+  toggleTodo: (todo: ITodo) => void
 }

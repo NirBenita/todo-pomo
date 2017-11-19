@@ -1,11 +1,6 @@
 import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 
-interface ITodo {
-  title: string
-  done: boolean
-}
-
 interface TodosProps {
   todos?: Array<ITodo>
 }
@@ -13,6 +8,24 @@ interface TodosProps {
 interface TodosState {
   newTodo: string
   todos?: Array<ITodo>
+}
+
+export const Todo: React.SFC<ITodoItemProps> = ({
+  todo,
+  removeTodo,
+  toggleTodo
+}) => {
+  return (
+    <li className="todo">
+      {todo.title}
+      <button className="remove" onClick={() => removeTodo(todo)}>
+        delete
+      </button>
+      <button className="toggle" onClick={() => toggleTodo(todo)}>
+        done
+      </button>
+    </li>
+  )
 }
 
 export class TodoList extends React.Component<TodosProps, TodosState> {
@@ -46,18 +59,16 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
       : []
     this.setState({ todos: newTodos })
   }
-  
+
   toggleTodo(todoToToggle: ITodo) {
     const newTodos =
-    this.state.todos &&
-    this.state.todos.map(
-      todo => {
-        if(todo.title === todoToToggle.title) {
+      this.state.todos &&
+      this.state.todos.map(todo => {
+        if (todo.title === todoToToggle.title) {
           todo.done != todo.done
         }
         return todo
-      }
-    )
+      })
     this.setState({ todos: newTodos })
   }
 
@@ -73,22 +84,12 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
         <ul className="todos">
           {this.state.todos &&
             this.state.todos.map((todo, index) => (
-              <li key={index} className="todo" done={todo.done && todo.done ? true : null}>
-                {todo.title}
-                <button
-                  
-                  className="remove"
-                  onClick={() => this.removeTodo(todo)}
-                >
-                  x
-                </button>
-                <button
-                  className="toggle"
-                  onClick={() => this.toggleTodo(todo)}
-                >
-                  done
-                </button>
-              </li>
+              <Todo
+                key={index}
+                todo={todo}
+                toggleTodo={() => this.toggleTodo(todo)}
+                removeTodo={() => this.removeTodo(todo)}
+              />
             ))}
         </ul>
       </div>

@@ -2,8 +2,6 @@
 
 import * as React from 'react'
 import './App.css'
-// import TodoItem from './TodoItem'
-import { findDOMNode } from 'react-dom'
 import mockTodoList from './lib/mock-data'
 import {TodoList} from './components/Todo'
 /* TODO: 
@@ -25,14 +23,6 @@ interface AppState {
   completion?: number
   intervalId?: NodeJS.Timer
   todos: Array<ITodo>
-}
-
-function addTodo(newTodo: ITodo) {
-  return function update(state: AppState) {
-    let todos = state.todos.slice()
-    todos.push(newTodo)
-    return { todos: todos }
-  }
 }
 
 class App extends React.Component<{}, AppState> {
@@ -88,34 +78,6 @@ class App extends React.Component<{}, AppState> {
     this.setState({ ...this.state, intervalId: timeinterval })
   }
 
-  // @@@ TODO @@@@
-  handleNewTodoKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.keyCode !== 13) {
-      return
-    }
-    e.preventDefault()
-    const newTodoInput = findDOMNode<HTMLInputElement>(
-      this.refs['newTodoInput']
-    )
-  
-    let val = newTodoInput.value.trim()
-  
-    if (val) {
-      this.addNewTodo(val)
-      newTodoInput.value = ''
-    }
-  }
-
-  addNewTodo(val: string) {
-    const newTodo = {
-      id: Math.random().toString(), // Replace with UUID
-      title: val,
-      completed: false,
-      pomadoros: 0
-    }
-
-    this.setState(addTodo(newTodo))
-  }
   render() {
     return (
       <div className="App">
