@@ -22,7 +22,6 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
       todos: this.props.todos || []
     }
   }
-
   handleNewTodoKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.keyCode !== 13) {
       return
@@ -38,6 +37,11 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
     }
   }
 
+  removeTodo(todoToRemove: ITodo){
+    const newTodos = this.state.todos ? this.state.todos.filter(todo=>todo!=todoToRemove) : []
+    this.setState({todos: newTodos})
+  }
+
   render() {
     return (
       <div>
@@ -50,7 +54,7 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
         <ul className="todos">
           {this.state.todos &&
             this.state.todos.map((todo, index) => (
-              <li key={index}>{todo.title}</li>
+              <li key={index} className="todo">{todo.title}<button className="remove" onClick={()=>this.removeTodo(todo)}>x</button></li>
             ))}
         </ul>
       </div>

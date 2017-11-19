@@ -50,9 +50,106 @@ exports[`should display todos passed to it 1`] = `
       className="todos"
     >
       <li
+        className="todo"
         key="0"
       >
         zagzag
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+      </li>
+    </ul>
+  </div>
+</TodoList>
+`;
+
+exports[`should remove a todo 1`] = `
+<TodoList
+  todos={
+    Array [
+      Object {
+        "title": "zagzag",
+      },
+      Object {
+        "title": "gaga",
+      },
+    ]
+  }
+>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
+      <li
+        className="todo"
+        key="0"
+      >
+        zagzag
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+      </li>
+      <li
+        className="todo"
+        key="1"
+      >
+        gaga
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
+      </li>
+    </ul>
+  </div>
+</TodoList>
+`;
+
+exports[`should remove a todo 2`] = `
+<TodoList
+  todos={
+    Array [
+      Object {
+        "title": "zagzag",
+      },
+      Object {
+        "title": "gaga",
+      },
+    ]
+  }
+>
+  <div>
+    <input
+      className="new-todo-input"
+      onKeyDown={[Function]}
+      type="text"
+    />
+    <ul
+      className="todos"
+    >
+      <li
+        className="todo"
+        key="0"
+      >
+        gaga
+        <button
+          className="remove"
+          onClick={[Function]}
+        >
+          x
+        </button>
       </li>
     </ul>
   </div>

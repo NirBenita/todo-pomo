@@ -26,7 +26,7 @@ it('should display todos passed to it', () => {
   expect(toJson(wrapper)).toMatchSnapshot()
 })
 
-it('should add a new todo', () => {
+xit('should add a new todo', () => {
   const component = mount(<TodoList />)
   const Input = component.find('.new-todo-input')
   let wrapper = toJson(component);
@@ -41,5 +41,19 @@ it('should add a new todo', () => {
   expect(wrapper).toMatchSnapshot()
 })
 
-it('should remove a todo', () => {})
+it('should remove a todo', () => {
+  const mockTodos = [{ title: 'zagzag' }, { title: 'gaga' }]
+  let component = mount(<TodoList todos={mockTodos} />)
+  let wrapper = toJson(component);
+  
+  expect(wrapper).toMatchSnapshot()
+  
+  let todoItem = component.find('.todo').first()
+  todoItem.find('.remove').simulate('click')
+  
+  wrapper = toJson(component);
+
+  expect(wrapper).toMatchSnapshot()
+
+})
 it('should check a todo', () => {})
