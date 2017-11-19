@@ -48,8 +48,8 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
           type="text"
         />
         <ul className="todos">
-          {this.props.todos &&
-            this.props.todos.map((todo, index) => (
+          {this.state.todos &&
+            this.state.todos.map((todo, index) => (
               <li key={index}>{todo.title}</li>
             ))}
         </ul>

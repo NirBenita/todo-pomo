@@ -25,9 +25,7 @@ exports[`should add a new todo 2`] = `
     />
     <ul
       className="todos"
-    >
-      <li>z</li>
-    </ul>
+    />
   </div>
 </TodoList>
 `;

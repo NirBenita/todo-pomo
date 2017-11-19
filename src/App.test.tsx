@@ -27,13 +27,19 @@ it('should display todos passed to it', () => {
 })
 
 it('should add a new todo', () => {
-  const wrapper = mount(<TodoList />)
-  const Input = wrapper.find('.new-todo-input')
-
-  expect(toJson(wrapper)).toMatchSnapshot()
+  const component = mount(<TodoList />)
+  const Input = component.find('.new-todo-input')
+  let wrapper = toJson(component);
   
-  Input.simulate('keyDown', { key: 'z', keyCode: 90, which: 90 })
-  Input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 })
+  expect(wrapper).toMatchSnapshot()
   
-  expect(toJson(wrapper)).toMatchSnapshot()
+  Input.simulate('keydown', { key: 'z', keyCode: 90, which: 90 })
+  Input.simulate('keydown', { key: 'Enter', keyCode: 13, which: 13 })
+  
+  wrapper = toJson(component);
+  
+  expect(wrapper).toMatchSnapshot()
 })
+
+it('should remove a todo', () => {})
+it('should check a todo', () => {})

@@ -2,10 +2,10 @@
 
 import * as React from 'react'
 import './App.css'
-import TodoItem from './TodoItem'
+// import TodoItem from './TodoItem'
 import { findDOMNode } from 'react-dom'
 import mockTodoList from './lib/mock-data'
-
+import {TodoList} from './components/Todo'
 /* TODO: 
   [x] Timer progress animation
     [x] How to set flex basis at runtime?
@@ -130,29 +130,7 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
-        <section className="todo">
-          <h4>Main goal for today</h4>
-          {this.state.todos.map(todo => (
-            <TodoItem
-              key={todo.id}
-              text={todo.title}
-              timerOn={true}
-              onClick={() => this.onClick(todo)}
-              completion={this.state.completion}
-              intervalId={this.state.intervalId}
-            />
-          ))}
-          <div className="todo-add">
-            <input
-              ref="newTodoInput"
-              onKeyDown={this.handleNewTodoKeyDown}
-              type="text"
-            />
-            <span className="action">+ </span>
-            <a href="#">Add a secondary task</a>
-          </div>
-          <div />
-        </section>
+        <TodoList todos={[{title:'zagzag'}]} />
       </div>
     )
   }
