@@ -20,9 +20,9 @@ it('should display todos passed to it', () => {
   ]
   const wrapper = mount(<TodoList todos={mockTodos} />)
   let driver = new TodoListDriver(wrapper)
-  const visibleItems = driver.getVisibleItems()
+  const visibleItems = driver.getVisibleTodos()
 
-  expect(visibleItems).toEqual(['gaga', 'baga'])
+  expect(visibleItems).toEqual(mockTodos)
 })
 
 xit('should add a new todo', () => {
@@ -50,33 +50,32 @@ xit('should add a new todo', () => {
   expect(wrapper).toMatchSnapshot()
 })
 
-it.only('should remove a todo', () => {
+it('should remove a todo', () => {
+  const todoToRemove = { title: 'toRemove', done: false }
   const mockTodos = [
-    { title: 'toRemove', done: false },
+    todoToRemove,
     { title: 'gaga', done: false }
   ]
   let wrapper = mount(<TodoList todos={mockTodos} />)
   let driver = new TodoListDriver(wrapper)
 
-  driver.deleteItem('toRemove')
-  const visibleItems = driver.getVisibleItems()
+  driver.deleteItem(todoToRemove)
+  const visibleTodos = driver.getVisibleTodos()
 
-  expect(visibleItems).toEqual(['gaga'])
+  expect(visibleTodos).not.toContain(todoToRemove)
 })
+
 it('should toggle a todo', () => {
+  const todoToToggle = { title: 'toToggle', done: false }
   const mockTodos = [
-    { title: 'toToggle', done: false },
+    todoToToggle,
     { title: 'gaga', done: false }
   ]
-  let component = mount(<TodoList todos={mockTodos} />)
-  let wrapper = toJson(component)
+  let wrapper = mount(<TodoList todos={mockTodos} />)
+  let driver = new TodoListDriver(wrapper)
 
-  expect(wrapper).toMatchSnapshot()
+  driver.toggleItem(todoToToggle)
+  const visibleItems = driver.getVisibleTodos()
 
-  let todoItem = component.find('.todo').first()
-  todoItem.find('.toggle').simulate('click')
-
-  wrapper = toJson(component)
-
-  expect(wrapper).toMatchSnapshot()
+  expect(visibleItems).toContainEqual({ title: 'toToggle', done: true })
 })

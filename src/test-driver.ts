@@ -5,13 +5,26 @@ import { ReactWrapper } from 'enzyme'
 export default class TodoListDriver {
   constructor(private wrapper: ReactWrapper) {}
 
-  getVisibleItems(): string[] {
+  getVisibleTodos(): ITodo[] {
+    const visibleTodos = this.wrapper.find('.todo')
+
+    return visibleTodos.map((todo: ReactWrapper) => todo.prop('todo'))
+  }
+  getTodosTitle(): string[] {
     const visibleItemsNodes = this.wrapper.find('.todo span')
+
     return visibleItemsNodes.map((todo: any) => todo.text())
   }
-  deleteItem(name: string) {
-    const idx = this.getVisibleItems().indexOf(name)
+  deleteItem(todo: ITodo) {
+    const idx = this.getVisibleTodos().indexOf(todo)
     const toRemove = this.wrapper.find('.todo').at(idx)
+
     toRemove.find('.remove').simulate('click')
+  }
+  toggleItem(todo: ITodo) {
+    const idx = this.getVisibleTodos().indexOf(todo)
+    const toToggle = this.wrapper.find('.todo').at(idx)
+
+    toToggle.find('.toggle').simulate('click')
   }
 }

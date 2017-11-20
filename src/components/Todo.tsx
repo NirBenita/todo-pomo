@@ -16,7 +16,7 @@ export const Todo: React.SFC<ITodoItemProps> = ({
   toggleTodo
 }) => {
   return (
-    <li className="todo">
+    <li>
       <span>{todo.title}</span>
       <button className="remove" onClick={() => removeTodo(todo)}>
         delete
@@ -65,7 +65,7 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
       this.state.todos &&
       this.state.todos.map(todo => {
         if (todo.title === todoToToggle.title) {
-          todo.done != todo.done
+          todo.done = !todo.done
         }
         return todo
       })
@@ -85,6 +85,7 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
           {this.state.todos &&
             this.state.todos.map((todo, index) => (
               <Todo
+                className="todo"
                 key={index}
                 todo={todo}
                 toggleTodo={() => this.toggleTodo(todo)}
