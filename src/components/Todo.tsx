@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { findDOMNode } from 'react-dom'
+import { findDOMNode, render } from 'react-dom'
 
 interface TodosProps {
   todos?: Array<ITodo>
@@ -17,7 +17,7 @@ export const Todo: React.SFC<ITodoItemProps> = ({
 }) => {
   return (
     <li className="todo">
-      {todo.title}
+      <span>{todo.title}</span>
       <button className="remove" onClick={() => removeTodo(todo)}>
         delete
       </button>

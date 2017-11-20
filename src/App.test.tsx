@@ -5,6 +5,7 @@ import toJson from 'enzyme-to-json'
 
 import App from './App'
 import { TodoList } from './components/Todo'
+import TodoListDriver from './test-driver'
 // import mockTodoList from './lib/mock-data'
 
 it('renders without crashing', () => {
@@ -12,18 +13,16 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div)
 })
 
-it('should render todo list', () => {
-  const wrapper = shallow(<TodoList />)
-
-  expect(toJson(wrapper)).toMatchSnapshot()
-})
-
 it('should display todos passed to it', () => {
-  const mockTodos = [{ title: 'zagzag', done: false }]
-
+  const mockTodos = [
+    { title: 'gaga', done: false },
+    { title: 'baga', done: false }
+  ]
   const wrapper = mount(<TodoList todos={mockTodos} />)
+  let driver = new TodoListDriver(wrapper)
+  const visibleItems = driver.getVisibleItems()
 
-  expect(toJson(wrapper)).toMatchSnapshot()
+  expect(visibleItems).toEqual(['gaga', 'baga'])
 })
 
 xit('should add a new todo', () => {
@@ -51,22 +50,18 @@ xit('should add a new todo', () => {
   expect(wrapper).toMatchSnapshot()
 })
 
-it('should remove a todo', () => {
+it.only('should remove a todo', () => {
   const mockTodos = [
     { title: 'toRemove', done: false },
     { title: 'gaga', done: false }
   ]
-  let component = mount(<TodoList todos={mockTodos} />)
-  let wrapper = toJson(component)
+  let wrapper = mount(<TodoList todos={mockTodos} />)
+  let driver = new TodoListDriver(wrapper)
 
-  expect(wrapper).toMatchSnapshot()
+  driver.deleteItem('toRemove')
+  const visibleItems = driver.getVisibleItems()
 
-  let todoItem = component.find('.todo').first()
-  todoItem.find('.remove').simulate('click')
-
-  wrapper = toJson(component)
-
-  expect(wrapper).toMatchSnapshot()
+  expect(visibleItems).toEqual(['gaga'])
 })
 it('should toggle a todo', () => {
   const mockTodos = [
