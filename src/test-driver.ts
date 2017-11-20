@@ -27,4 +27,14 @@ export default class TodoListDriver {
 
     toToggle.find('.toggle').simulate('click')
   }
+  addItem(title: string) {
+    const addItemInput = this.wrapper.find('.new-todo-input')
+    addItemInput.simulate('change', { target: { value: title } })
+    addItemInput.simulate('keydown', {
+      preventDefault() {},
+      key: 'Enter',
+      keyCode: 13,
+      which: 13
+    })
+  }
 }

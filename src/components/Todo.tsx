@@ -6,7 +6,7 @@ interface TodosProps {
 }
 
 interface TodosState {
-  newTodo: string
+  newInputValue: string
   todos?: Array<ITodo>
 }
 
@@ -32,7 +32,7 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
   constructor(props: TodosProps) {
     super(props)
     this.state = {
-      newTodo: '',
+      newInputValue: '',
       todos: this.props.todos || []
     }
   }
@@ -51,6 +51,10 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
 
       findDOMNode<HTMLInputElement>(this.refs['newField']).value = ''
     }
+  }
+  
+  handleNewTodoChange(e: React.ChangeEvent<HTMLInputElement>){
+    this.setState({newInputValue: e.target.value})
   }
 
   removeTodo(todoToRemove: ITodo) {
@@ -79,6 +83,8 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
           className="new-todo-input"
           ref="newField"
           onKeyDown={e => this.handleNewTodoKeyDown(e)}
+          onChange={e => this.handleNewTodoChange(e)}
+          value={this.state.newInputValue}
           type="text"
         />
         <ul className="todos">
