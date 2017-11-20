@@ -58,3 +58,12 @@ it('should toggle a todo', () => {
 
   expect(visibleItems).toContainEqual({ title: 'toToggle', done: true })
 })
+
+it('should start a timer', () => {
+  const wrapper = shallow(<Timer />)
+
+  wrapper.find('.start').simulate('click')
+  const intervalID = wrapper.state('intervalID')
+
+  expect(typeof(intervalID)).toBe('number')
+})
