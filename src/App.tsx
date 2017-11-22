@@ -3,7 +3,7 @@
 import * as React from 'react'
 import './App.css'
 import mockTodoList from './lib/mock-data'
-import {TodoList} from './components/Todo'
+import { TodoList } from './components/Todo'
 /* TODO: 
   [x] Timer progress animation
     [x] How to set flex basis at runtime?
@@ -92,7 +92,7 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
-        <TodoList todos={[{title:'zagzag', done: false}]} />
+        <TodoList todos={[{ title: 'zagzag', done: false }]} />
       </div>
     )
   }

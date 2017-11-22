@@ -1,0 +1,53 @@
+import * as React from 'react'
+
+interface TimerState {
+  startTime: number
+  endTime: number
+  timeLeft: number
+  timeInterval: NodeJS.Timer
+}
+interface TimerProps {
+  time: number
+}
+
+export class Timer extends React.Component<TimerProps, TimerState> {
+  constructor(props: TimerProps) {
+    super(props)
+  }
+
+  updateTimeLeft() {
+    const timeLeft = this.state.endTime - this.state.startTime
+    
+    if (timeLeft < 0) {
+      clearInterval(this.state.timeInterval)
+    }
+    this.setState({ timeLeft })
+  }
+
+  intializeTimer(minutes: number) {
+    const startTime: number = new Date().getTime()
+    const endTime: number = new Date(startTime + minutes * 60 * 1000).getTime()
+
+    this.setState({
+      startTime,
+      endTime
+    })
+
+    const timeInterval: NodeJS.Timer = global.setInterval(
+      () => this.updateTimeLeft(),
+      1000
+    )
+    this.setState({ timeInterval })
+  }
+
+  render() {
+    return (
+      <div>
+        <button
+          className="start"
+          onClick={() => this.intializeTimer(this.props.time)}
+        />
+      </div>
+    )
+  }
+}
