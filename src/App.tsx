@@ -2,8 +2,9 @@
 
 import * as React from 'react'
 import './App.css'
-import mockTodoList from './lib/mock-data'
+// import mockTodoList from './lib/mock-data'
 import { TodoList } from './components/Todo'
+import { Timer } from './components/Timer'
 /* TODO: 
   [x] Timer progress animation
     [x] How to set flex basis at runtime?
@@ -30,52 +31,8 @@ class App extends React.Component<{}, AppState> {
     super(props)
     this.state = {
       completion: 0,
-      todos: mockTodoList
+      todos: []
     }
-  }
-
-  // @@@ TIMER @@@
-
-  onClick(todo: ITodo) {
-    this.initializeTimer(1)
-  }
-  getTimeRemaining(startTime: number, endTime: number) {
-    var now: number = +new Date(),
-      start: number = startTime,
-      end: number = endTime
-
-    let total = end - start
-    let progress = now - start
-
-    const t = Math.round(progress / total * 100)
-    console.log(t)
-    return t
-  }
-
-  updateTimer(startTime: number, endTime: number) {
-    const timeRemaining = this.getTimeRemaining(startTime, endTime)
-    this.setState({ ...this.state, completion: timeRemaining })
-    // if (parseInt(timeRemaining.total) <= 0) {
-    //   Stop
-    // }
-  }
-
-  initializeTimer(timeInMinutes: number) {
-    var startTime: number = new Date().getTime()
-    var endTime: number = new Date(
-      startTime + timeInMinutes * 60 * 1000
-    ).getTime()
-
-    if (this.state.intervalId) {
-      clearInterval(this.state.intervalId)
-    }
-    this.updateTimer(startTime, endTime)
-
-    let timeinterval = global.setInterval(
-      () => this.updateTimer(startTime, endTime),
-      1000
-    )
-    this.setState({ ...this.state, intervalId: timeinterval })
   }
 
   render() {
@@ -92,6 +49,7 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
+        <Timer time={1/20} />
         <TodoList todos={[{ title: 'zagzag', done: false }]} />
       </div>
     )

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { findDOMNode, render } from 'react-dom'
+import { findDOMNode } from 'react-dom'
 
 interface TodosProps {
   todos?: Array<ITodo>

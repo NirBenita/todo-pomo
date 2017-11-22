@@ -16,11 +16,13 @@ export class Timer extends React.Component<TimerProps, TimerState> {
   }
 
   updateTimeLeft() {
-    const timeLeft = this.state.endTime - this.state.startTime
-    
+    const now: number = +new Date()
+    const timeLeft = this.state.endTime - now
+
     if (timeLeft < 0) {
       clearInterval(this.state.timeInterval)
     }
+    
     this.setState({ timeLeft })
   }
 
@@ -46,7 +48,9 @@ export class Timer extends React.Component<TimerProps, TimerState> {
         <button
           className="start"
           onClick={() => this.intializeTimer(this.props.time)}
-        />
+        >
+          Start Timer
+        </button>
       </div>
     )
   }
