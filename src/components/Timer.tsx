@@ -19,7 +19,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
     const now: number = +new Date()
     const timeLeft = this.state.endTime - now
 
-    if (timeLeft < 0) {
+    if (timeLeft < 1) {
       clearInterval(this.state.timeInterval)
     }
     

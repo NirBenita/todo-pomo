@@ -80,15 +80,20 @@ describe('Timer component', () => {
   
   jest.useFakeTimers()
   it.only('should update the reamining time every second', () => {
-    const time = 1/12
-    const wrapper = shallow(<Timer time={time} />)
+    const timeInMinutes = 0.1
+    const wrapper = shallow(<Timer time={timeInMinutes} />)
+
+    wrapper.find('.start').simulate('click')   
+    jest.runAllTimers()
+
+    expect(setInterval.mock.calls.length).toBe(5)
+  })
+
+  it('should stop running when the timer is done', ()=>{
+    const timeInMinutes = 0.1
+    const wrapper = shallow(<Timer time={timeInMinutes} />)
 
     wrapper.find('.start').simulate('click')
 
-    jest.runAllTimers()    
-
-    expect(setInterval.mock.calls.length).toBe(4)
   })
-  it('should start a new number, if one is already running')
-  it('should fire an event when the timer is done')
 })
