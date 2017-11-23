@@ -78,8 +78,7 @@ describe('Timer component', () => {
   })
 
   xit('should update the reamining time every second', () => {
-    const timeInMinutes = 0.1
-    const wrapper = mount(<Timer time={timeInMinutes} />)
+    const wrapper = mount(<Timer time={0.1} />)
 
     wrapper.find('.start').simulate('click')
     jest.runAllTimers()
@@ -88,11 +87,8 @@ describe('Timer component', () => {
   })
 
   it('should fire an event when the timer is done', () => {
-    const timeInMinutes = 0.001
     const mockCallback = jest.fn()
-    const wrapper = shallow(
-      <Timer time={timeInMinutes} onComplete={mockCallback} />
-    )
+    const wrapper = mount(<Timer time={0.001} onComplete={mockCallback} />)
 
     expect(mockCallback.mock.calls.length).toBe(0)
 
