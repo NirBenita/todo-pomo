@@ -66,34 +66,39 @@ describe('Todo list component', () => {
 })
 
 describe('Timer component', () => {
-  it('should initialize a timer for a given amount of minutes', () => {
-    const minutes = 1
-    const wrapper = shallow(<Timer time={minutes} />)
-    
-    wrapper.find('.start').simulate('click')
-    const totalTimeInMinutes = Math.floor(
-      (wrapper.state('endTime') - wrapper.state('startTime')) * 0.0000166667
-    )
-    
-    expect(totalTimeInMinutes).toBe(minutes)
-  })
-  
   jest.useFakeTimers()
-  it.only('should update the reamining time every second', () => {
-    const timeInMinutes = 0.1
+
+  it('should initialize a timer for a given amount of minutes', () => {
+    const timeInMinutes = 0.001
     const wrapper = shallow(<Timer time={timeInMinutes} />)
 
-    wrapper.find('.start').simulate('click')   
+    wrapper.find('.start').simulate('click')
+
+    expect(setInterval.mock.calls.length).toBe(1)
+  })
+
+  xit('should update the reamining time every second', () => {
+    const timeInMinutes = 0.1
+    const wrapper = mount(<Timer time={timeInMinutes} />)
+
+    wrapper.find('.start').simulate('click')
     jest.runAllTimers()
 
     expect(setInterval.mock.calls.length).toBe(5)
   })
 
-  it('should stop running when the timer is done', ()=>{
-    const timeInMinutes = 0.1
-    const wrapper = shallow(<Timer time={timeInMinutes} />)
+  it('should fire an event when the timer is done', () => {
+    const timeInMinutes = 0.001
+    const mockCallback = jest.fn()
+    const wrapper = shallow(
+      <Timer time={timeInMinutes} onComplete={mockCallback} />
+    )
+
+    expect(mockCallback.mock.calls.length).toBe(0)
 
     wrapper.find('.start').simulate('click')
+    jest.runAllTimers()
 
+    expect(mockCallback.mock.calls.length).toBe(1)
   })
 })

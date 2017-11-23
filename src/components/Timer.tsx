@@ -8,6 +8,7 @@ interface TimerState {
 }
 interface TimerProps {
   time: number
+  onComplete?: () => {}
 }
 
 export class Timer extends React.Component<TimerProps, TimerState> {
@@ -21,8 +22,9 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
     if (timeLeft < 1) {
       clearInterval(this.state.timeInterval)
+      this.props.onComplete && this.props.onComplete()
     }
-    
+
     this.setState({ timeLeft })
   }
 
