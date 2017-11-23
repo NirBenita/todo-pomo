@@ -10,18 +10,33 @@ interface TodosState {
   todos?: Array<ITodo>
 }
 
-export const Todo: React.SFC<ITodoItemProps> = ({
+interface ITodoItemProps {
+  todo: ITodo
+  className?: string
+  removeTodo?: (todo: ITodo) => void
+  toggleTodo?: (todo: ITodo) => void
+}
+
+export const TodoItem: React.SFC<ITodoItemProps> = ({
   todo,
   removeTodo,
   toggleTodo
 }) => {
+
+  const indicators = Array.from(new Array(todo.expected), (indicator,index) => (
+    <div key={index} className="indicator">
+      {index}
+    </div>
+  ));
+
   return (
     <li>
       <span>{todo.title}</span>
-      <button className="remove" onClick={() => removeTodo(todo)}>
+      <div className="counter">{indicators}</div>
+      <button className="remove" onClick={() => removeTodo && removeTodo(todo)}>
         delete
       </button>
-      <button className="toggle" onClick={() => toggleTodo(todo)}>
+      <button className="toggle" onClick={() => toggleTodo && toggleTodo(todo)}>
         done
       </button>
     </li>
@@ -52,9 +67,9 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
       findDOMNode<HTMLInputElement>(this.refs['newField']).value = ''
     }
   }
-  
-  handleNewTodoChange(e: React.ChangeEvent<HTMLInputElement>){
-    this.setState({newInputValue: e.target.value})
+
+  handleNewTodoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ newInputValue: e.target.value })
   }
 
   removeTodo(todoToRemove: ITodo) {
@@ -90,7 +105,7 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
         <ul className="todos">
           {this.state.todos &&
             this.state.todos.map((todo, index) => (
-              <Todo
+              <TodoItem
                 className="todo"
                 key={index}
                 todo={todo}

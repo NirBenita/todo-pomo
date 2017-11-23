@@ -3,31 +3,34 @@ import * as ReactDOM from 'react-dom'
 import { shallow, mount } from 'enzyme'
 
 import App from './App'
-import { TodoList } from './components/Todo'
+import { TodoList, TodoItem } from './components/Todo'
 import { Timer } from './components/Timer'
 import TodoListDriver from './test-driver'
 
+it('renders without crashing', () => {
+  const div = document.createElement('div')
+  ReactDOM.render(<App />, div)
+})
+
 describe('Todo list component', () => {
-  it('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<App />, div)
-  })
+  const createTodoListDriver = (todos: Array<ITodo>) => {
+    const wrapper = mount(<TodoList todos={todos} />)
+    return new TodoListDriver(wrapper)
+  }
 
   it('should display todos passed to it', () => {
     const mockTodos = [
       { title: 'gaga', done: false },
       { title: 'baga', done: false }
     ]
-    const wrapper = mount(<TodoList todos={mockTodos} />)
-    let driver = new TodoListDriver(wrapper)
+    let driver = createTodoListDriver(mockTodos)
     const visibleItems = driver.getVisibleTodos()
 
     expect(visibleItems).toEqual(mockTodos)
   })
 
   it('should add a new todo', () => {
-    let wrapper = mount(<TodoList />)
-    let driver = new TodoListDriver(wrapper)
+    let driver = createTodoListDriver([])
 
     driver.addItem('to add')
     const visibleTodos = driver.getVisibleTodos()
@@ -38,8 +41,7 @@ describe('Todo list component', () => {
   it('should remove a todo', () => {
     const todoToRemove = { title: 'toRemove', done: false }
     const mockTodos = [todoToRemove, { title: 'gaga', done: false }]
-    let wrapper = mount(<TodoList todos={mockTodos} />)
-    let driver = new TodoListDriver(wrapper)
+    let driver = createTodoListDriver(mockTodos)
 
     driver.deleteItem(todoToRemove)
     const visibleTodos = driver.getVisibleTodos()
@@ -50,8 +52,7 @@ describe('Todo list component', () => {
   it('should toggle a todo', () => {
     const todoToToggle = { title: 'toToggle', done: false }
     const mockTodos = [todoToToggle, { title: 'gaga', done: false }]
-    let wrapper = mount(<TodoList todos={mockTodos} />)
-    let driver = new TodoListDriver(wrapper)
+    let driver = createTodoListDriver(mockTodos)
 
     driver.toggleItem(todoToToggle)
     const visibleItems = driver.getVisibleTodos()
@@ -59,10 +60,19 @@ describe('Todo list component', () => {
     expect(visibleItems).toContainEqual({ title: 'toToggle', done: true })
   })
 
-  it(
-    'should not create a todo if an uncompleted todo with the same title exists'
-  )
+  it('should not create a todo if a todo with the same title exists')
   it('should not create a todo with an empty string')
+})
+
+describe('Todolist item', () => {
+  it('should display the expected amount of sessions to complete the todo', () => {
+    const mockTodo = { title: 'toToggle', done: false, expected: 5 }
+    let wrapper = mount(<TodoItem todo={mockTodo} />)
+
+    const indicator = wrapper.find('.counter .indicator')
+    console.log(wrapper.find('.counter .indicator'))
+    expect(indicator.length).toBe(5)
+  })
 })
 
 describe('Timer component', () => {
@@ -74,7 +84,7 @@ describe('Timer component', () => {
 
     wrapper.find('.start').simulate('click')
 
-    expect(setInterval.mock.calls.length).toBe(1)
+    // expect(setInterval.mock.calls.length).toBe(1)
   })
 
   xit('should update the reamining time every second', () => {
@@ -83,7 +93,7 @@ describe('Timer component', () => {
     wrapper.find('.start').simulate('click')
     jest.runAllTimers()
 
-    expect(setInterval.mock.calls.length).toBe(5)
+    // expect(setInterval.mock.calls.length).toBe(5)
   })
 
   it('should fire an event when the timer is done', () => {
@@ -97,4 +107,8 @@ describe('Timer component', () => {
 
     expect(mockCallback.mock.calls.length).toBe(1)
   })
+})
+
+describe('integration between timer and todo', () => {
+  it('')
 })

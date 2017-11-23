@@ -1,11 +1,7 @@
 interface ITodo {
   title: string
   done: boolean
+  expected?: number
 }
 
-interface ITodoItemProps {
-  todo: ITodo
-  className: string
-  removeTodo: (todo: ITodo) => void
-  toggleTodo: (todo: ITodo) => void
-}
+

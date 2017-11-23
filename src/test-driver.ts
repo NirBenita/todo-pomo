@@ -4,7 +4,7 @@ import { ReactWrapper } from 'enzyme'
 
 export default class TodoListDriver {
   constructor(private wrapper: ReactWrapper) {}
-
+  
   getVisibleTodos(): ITodo[] {
     const visibleTodos = this.wrapper.find('.todo')
 
