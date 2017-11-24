@@ -51,7 +51,7 @@ class App extends React.Component<{}, AppState> {
         </header>
         <div className="shiny" />
         <Timer time={1/20} />
-        <TodoList todos={[{ title: 'zagzag', done: false, expected: 5 }]} />
+        <TodoList todos={[{ title: 'zagzag', done: false, expected: 5, actual: 2 }]} />
       </div>
     )
   }

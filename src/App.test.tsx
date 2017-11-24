@@ -65,14 +65,25 @@ describe('Todo list component', () => {
 })
 
 describe('Todolist item', () => {
-  it('should display the expected amount of sessions to complete the todo', () => {
+  it('should display the expected amount of pomadoros to complete', () => {
     const mockTodo = { title: 'toToggle', done: false, expected: 5 }
     let wrapper = mount(<TodoItem todo={mockTodo} />)
 
     const indicator = wrapper.find('.counter .indicator')
-    console.log(wrapper.find('.counter .indicator'))
+
     expect(indicator.length).toBe(5)
   })
+  it('should display the amount of pomadoro completed', ()=>{
+    const mockTodo = { title: 'toToggle', done: false, expected: 5, actual: 1 }
+    let wrapper = mount(<TodoItem todo={mockTodo} />)
+
+    const indicator = wrapper.find('.counter .indicator')
+    const indicatorCompleted = wrapper.find('.counter .indicator.completed')
+
+    expect(indicator.length).toBe(5)
+    expect(indicatorCompleted.length).toBe(1)
+  })
+  it('should display tha actual amount of pomadoros, even if more that expected')
 })
 
 describe('Timer component', () => {
