@@ -22,10 +22,17 @@ export const TodoItem: React.SFC<ITodoItemProps> = ({
   removeTodo,
   toggleTodo
 }) => {
+  let numIndicators = 0
+  if (todo.actual && todo.expected) {
+    numIndicators = todo.actual > todo.expected ? todo.actual : todo.expected
+  } else if (todo.expected && !todo.actual) {
+    numIndicators = todo.expected
+  } else if (!todo.expected && todo.actual){
+    numIndicators = todo.actual
+  }
   const indicators = Array.from(
-    new Array(todo.expected),
+    new Array(numIndicators),
     (indicator, index) => {
-
       if (todo.actual && index < todo.actual) {
         return (
           <div key={index} className="indicator completed">

@@ -150,3 +150,7 @@ a:hover {
   color: #207cf0;
   font-weight: bold;
 }
+
+.completed{
+  color:red
+}
