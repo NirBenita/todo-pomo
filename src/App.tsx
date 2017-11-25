@@ -5,20 +5,6 @@ import './App.css'
 // import mockTodoList from './lib/mock-data'
 import { TodoList } from './components/Todo'
 import { Timer } from './components/Timer'
-/* TODO: 
-  [x] Timer progress animation
-    [x] How to set flex basis at runtime?
-  - Todo
-    [ ] Add Todo
-    [ ] Complete Todo
-    [ ] Remove Todo
-    [ ] Multiple timers
-  - Pomadoro sessions indicator
-    [x] skin
-    [ ] logic
-    [ ] Make timer global
-*/
-
 
 interface AppState {
   timeLeft?: string
@@ -50,8 +36,11 @@ class App extends React.Component<{}, AppState> {
           </div>
         </header>
         <div className="shiny" />
-        <Timer time={1/20} />
-        <TodoList todos={[{ title: 'zagzag', done: false, expected: 5, actual: 2 }]} />
+        <Timer time={1 / 20}>
+          <TodoList
+            todos={[{ title: 'zagzag', done: false, expected: 5, actual: 2 }]}
+          />
+        </Timer>
       </div>
     )
   }

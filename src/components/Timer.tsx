@@ -24,11 +24,11 @@ export class Timer extends React.Component<TimerProps, TimerState> {
       clearInterval(this.state.timeInterval)
       this.props.onComplete && this.props.onComplete()
     }
-
+    console.log(timeLeft)
     this.setState({ timeLeft })
   }
 
-  intializeTimer(minutes: number) {
+  initializeTimer(minutes: number) {
     const startTime: number = new Date().getTime()
     const endTime: number = new Date(startTime + minutes * 60 * 1000).getTime()
 
@@ -42,18 +42,20 @@ export class Timer extends React.Component<TimerProps, TimerState> {
       1000
     )
     this.setState({ timeInterval })
-  }
 
+    console.log('initializeTimer')
+  }
+  renderChildren() {
+    return React.Children.map(this.props.children, child => {
+      if (React.isValidElement(child)) {
+        return React.cloneElement(child as React.ReactElement<any>, {
+          initializeTimer: () => this.initializeTimer(this.props.time)
+        })
+      }
+      return child
+    })
+  }
   render() {
-    return (
-      <div>
-        <button
-          className="start"
-          onClick={() => this.intializeTimer(this.props.time)}
-        >
-          Start Timer
-        </button>
-      </div>
-    )
+    return <div>{this.renderChildren()}</div>
   }
 }

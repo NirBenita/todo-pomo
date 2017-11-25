@@ -3,6 +3,8 @@ import { findDOMNode } from 'react-dom'
 
 interface TodosProps {
   todos?: Array<ITodo>
+  onTodoClick?: () => void
+  initializeTimer?: () => void
 }
 
 interface TodosState {
@@ -15,19 +17,22 @@ interface ITodoItemProps {
   className?: string
   removeTodo?: (todo: ITodo) => void
   toggleTodo?: (todo: ITodo) => void
+  onClick?: () => void
 }
 
 export const TodoItem: React.SFC<ITodoItemProps> = ({
   todo,
   removeTodo,
-  toggleTodo
+  toggleTodo,
+  className,
+  onClick
 }) => {
   let numIndicators = 0
   if (todo.actual && todo.expected) {
     numIndicators = todo.actual > todo.expected ? todo.actual : todo.expected
   } else if (todo.expected && !todo.actual) {
     numIndicators = todo.expected
-  } else if (!todo.expected && todo.actual){
+  } else if (!todo.expected && todo.actual) {
     numIndicators = todo.actual
   }
   const indicators = Array.from(
@@ -35,22 +40,21 @@ export const TodoItem: React.SFC<ITodoItemProps> = ({
     (indicator, index) => {
       if (todo.actual && index < todo.actual) {
         return (
-          <div key={index} className="indicator completed">
+          <span key={index} className="indicator completed">
             {index}
-          </div>
+          </span>
         )
       } else {
         return (
-          <div key={index} className="indicator">
+          <span key={index} className="indicator">
             {index}
-          </div>
+          </span>
         )
       }
     }
   )
-
   return (
-    <li>
+    <li onClick={()=>onClick && onClick()} className="todo-item">
       <span>{todo.title}</span>
       <div className="counter">{indicators}</div>
       <button className="remove" onClick={() => removeTodo && removeTodo(todo)}>
@@ -110,7 +114,6 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
       })
     this.setState({ todos: newTodos })
   }
-
   render() {
     return (
       <div>
@@ -126,11 +129,13 @@ export class TodoList extends React.Component<TodosProps, TodosState> {
           {this.state.todos &&
             this.state.todos.map((todo, index) => (
               <TodoItem
-                className="todo"
+                className="todo todo-item"
                 key={index}
                 todo={todo}
                 toggleTodo={() => this.toggleTodo(todo)}
                 removeTodo={() => this.removeTodo(todo)}
+                onClick={() => this.props.initializeTimer && this.props.initializeTimer()
+                }
               />
             ))}
         </ul>

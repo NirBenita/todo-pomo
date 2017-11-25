@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 
 import App from './App'
 import { TodoList, TodoItem } from './components/Todo'
@@ -73,7 +73,7 @@ describe('Todolist item', () => {
 
     expect(indicator.length).toBe(5)
   })
-  it('should display the amount of pomadoro completed', ()=>{
+  it('should display the amount of pomadoro completed', () => {
     const mockTodo = { title: 'toToggle', done: false, expected: 5, actual: 1 }
     let wrapper = mount(<TodoItem todo={mockTodo} />)
 
@@ -83,37 +83,45 @@ describe('Todolist item', () => {
     expect(indicator.length).toBe(5)
     expect(indicatorCompleted.length).toBe(1)
   })
-  it('should display tha actual amount of pomadoros, even if more that expected', ()=>{
+  it('should display tha actual amount of pomadoros, even if more that expected', () => {
     const mockTodo = { title: 'toToggle', done: false, expected: 1, actual: 3 }
     let wrapper = mount(<TodoItem todo={mockTodo} />)
-  
+
     const indicator = wrapper.find('.counter .indicator')
     const indicatorCompleted = wrapper.find('.counter .indicator.completed')
-  
+
     expect(indicator.length).toBe(3)
     expect(indicatorCompleted.length).toBe(3)
   })
 })
 
-describe('Timer component', () => {
-  jest.useFakeTimers()
+jest.useFakeTimers()
 
+describe('Timer component', () => {
   it('should initialize a timer for a given amount of minutes', () => {
     const timeInMinutes = 0.001
-    const wrapper = shallow(<Timer time={timeInMinutes} />)
+    const wrapper = mount(
+      <Timer time={timeInMinutes}>
+        <button className="start" />
+      </Timer>
+    )
 
-    wrapper.find('.start').simulate('click')
+    expect(setInterval.mock.calls.length).toBe(0)
 
-    // expect(setInterval.mock.calls.length).toBe(1)
+    wrapper.find('.start').first().simulate('click')
+
+    expect(setInterval.mock.calls.length).toBe(1)
   })
 
   xit('should update the reamining time every second', () => {
     const wrapper = mount(<Timer time={0.1} />)
 
+    expect(setInterval.mock.calls.length).toBe(0)
+
     wrapper.find('.start').simulate('click')
     jest.runAllTimers()
 
-    // expect(setInterval.mock.calls.length).toBe(5)
+    expect(setInterval.mock.calls.length).toBe(5)
   })
 
   it('should fire an event when the timer is done', () => {
@@ -130,5 +138,21 @@ describe('Timer component', () => {
 })
 
 describe('integration between timer and todo', () => {
-  it('')
+  it('should start a new timer when clicking on Todo', () => {
+    const wrapper = mount(
+      <Timer time={1 / 12}>
+        <TodoList todos={[{ title: 'gaga', done: false }]}/>
+      </Timer>
+    )
+    jest.resetAllMocks()
+
+    expect(setInterval.mock.calls.length).toBe(0)
+
+    wrapper.find('.todo').simulate('click')
+
+    expect(setInterval.mock.calls.length).toBe(1)
+  })
+
+  it('should update todo item`s indication of time progress')
+  it('should increment todo.actual when timer is completed')
 })
